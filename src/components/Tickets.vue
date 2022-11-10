@@ -1,75 +1,98 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">Calories</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in tickets" :key="item.id">
-            <td>{{ item.title }}</td>
-            <td>{{ item.title }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+  <v-app>
+    <v-data-table
+      :headers="headers"
+      :items="tickets"
+      :items-per-page="10"
+      class="elevation-1"
+    >
+    
+       <template v-slot:[`item.title`]="{ item }">
+          <v-text-field v-model="editedItem.title" :hide-details="true" dense single-line :autofocus="true" v-if="item.id === editedItem.id"></v-text-field>
+          <span v-else>{{item.title}}</span>
+        </template>
+        
+        <template v-slot:[`item.description`]="{ item }">
+          <v-text-field v-model="editedItem.description" :hide-details="true" dense single-line v-if="item.id === editedItem.id" ></v-text-field>
+          <span v-else>{{item.description}}</span>
+        </template>
+
+        <template  v-slot:[`item.image_path`]="{ item }">
+          <ImageCell :path='item.image_path'/>
+        </template>
+        
+        <template v-slot:[`item.actions`]="{ item }">
+          <div v-if="item.id === editedItem.id">
+            <v-icon color="red" class="mr-3" @click="close">
+              mdi-window-close
+            </v-icon>
+            <v-icon color="green"  @click="save">
+              mdi-content-save
+            </v-icon>
+          </div>
+          <div v-else>
+            <v-icon color="green" class="mr-3" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+          </div>
+        </template>
+    </v-data-table>
+  </v-app>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
+import ImageCell from './ImageCell.vue'
 export default {
+  components:{
+    ImageCell
+  },
   data() {
     return {
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
+      editedItem: '',
+      headers: [
+        { 
+          text: "ID", 
+          value: "id" 
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237,
+          text: "Title",
+          value: "title",
         },
         {
-          name: "Eclair",
-          calories: 262,
+          text: "Description",
+          value: "description",
         },
         {
-          name: "Cupcake",
-          calories: 305,
+          text: "Image", 
+          value: "image_path"
         },
-        {
-          name: "Gingerbread",
-          calories: 356,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-        },
+        { 
+          text: 'Actions', 
+          value: 'actions', 
+          width: "100px"
+        }
       ],
     };
   },
-  computed : mapGetters(['tickets']) ,
-  created() {
-    this.$store.dispatch('getTickets')
-  }
-    // Другие вычисляемые свойства
+
+  computed: mapGetters(["tickets"]),
+
+  methods: {
+    editItem(item) {
+      this.editedItem = {...item}
+    },
+
+    close(){
+      this.editedItem = ''
+    },
+
+    save(){
+      alert('функция для сохранение не написано')
+    }
+  },
   
+  created() {
+    this.$store.dispatch("getTickets");
+  },
 };
 </script>
