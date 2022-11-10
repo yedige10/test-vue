@@ -1,19 +1,71 @@
 <template>
   <div class="image-cropper">
-    <img :src="'https://test-api.mybimiboo.dev/' + path" class="image" />
+    <img 
+      :src="choosenImageURL ?? imagePath" 
+      class="image" 
+    />
+
     <div class="middle">
-      <button>Change</button>
+      <input
+        :id="'fileUpload' + item.id"
+        type="file"
+        hidden
+        accept="image/*"
+        @change="selectedImage($event)"
+      />
+
+      <button 
+        class="ft-12" 
+        v-if="choosenImageURL" 
+        type="button" 
+        @click="saveImage()"
+      >
+        Save
+      </button>
+
+      <button 
+        class="ft-12" 
+        v-else 
+        type="button" 
+        @click="chooseImage()"
+      >
+        Change
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["path"],
+  props: ["item"],
+
   data() {
-    return {};
+    return {
+      image: null,
+      choosenImageURL: null
+    };
   },
-  setup() {},
+  
+  computed: {
+    imagePath: function () {
+      return 'https://test-api.mybimiboo.dev/' + this.item.image_path 
+    }
+  },
+
+  methods: {
+    chooseImage() {
+      document.getElementById("fileUpload" + this.item.id).click();
+    },
+
+    selectedImage(event) {
+      this.image = event.target.files[0];
+      this.choosenImageURL = URL.createObjectURL(event.target.files[0])
+    },
+
+    saveImage(){
+      this.$emit('imageChange', this.image)
+    }
+  }
 };
 </script>
 
@@ -35,19 +87,24 @@ img {
 }
 
 .middle {
+  padding: 4px;
   transition: 0.5s ease;
   opacity: 0;
   position: absolute;
   bottom: 0%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
   text-align: center;
 }
 
 .image-cropper:hover .middle {
-  background: #000000;
+  background: rgba(0, 0, 0);
   color: #ffffff;
-  opacity: 1;
+  opacity: 0.8;
+}
+
+.ft-12{
+  font-size: 12px;
 }
 </style>

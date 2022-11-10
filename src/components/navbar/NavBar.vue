@@ -1,10 +1,24 @@
 <template>
     <div class="wrapper">
-        <div>Tickets</div>
+        <h2>Tickets</h2>
 
-        <div class="container">
+        <div class="userContainer">
             <div class="userWrapper">
-                <button>New Item</button>
+                <button class="button-primary">NEW ITEM</button>
+
+                <img src="../../assets/icons/Search.svg" />
+
+                <img src="../../assets/icons/Notification.svg" />
+
+                <v-divider
+                    vertical
+                ></v-divider>
+
+                <div class="userProfile">
+                    <span>Jones Ferdinand</span>
+
+                    <img src="../../assets/images/user.png" />
+                </div>
                 
             </div>
         </div>
@@ -23,23 +37,37 @@ export default {
 .wrapper {
   height: 64px;
   display: flex;
-  /* flex-direction: row;
-  justify-content: space-between; */
+  flex-direction: row;
+  justify-content: space-between; 
   border: none;
   padding: 0 12px;
   align-items: center;
-  /*box-shadow: 0px 1px 2px rgba(145, 158, 171, 0.12);*/
+  margin-top: 16px;
   margin-bottom: 20px;
 }
 
-.container{
+
+.userContainer{
     margin-left: auto;
 }
 
 .userWrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
+}
+
+.button-primary {
+    background: #3751FF;
+    border-radius: 100px;
+    padding: 8px 16px;
+    color: #ffffff
+}
+
+.userProfile{
+    display: flex;
+    align-items: center;
+    gap:8px
 }
 
 </style>

@@ -1,47 +1,46 @@
 <template>
     <div class="wrapper">
         <div class="main">
-            <div style="display: flex; justify-content: center; gap: 8px">
+            <div class="logoContainer">
                 <img alt='logo' src="../../assets/icons/logo.svg" />
+
                 <p>Dashboard</p>
             </div>
-            <nav>
+
+            <nav style="marginTop: 24px">
                 <ul style="list-style-type: none;">
                     <li>
                         <div class="linkContainer">
                             <img src="../../assets/icons/Overview.svg" />
-                            <p>fd</p>
+                            <p>Overview</p>
                         </div>
                     </li>
 
                     <li>
                         <div class="linkContainer">
                             <img src="../../assets/icons/tickets.svg" />
-                            <p>fdsfds</p>
+                            <p>Tickets</p>
                         </div>
                     </li>
+
                     <li>
                         <div class="linkContainer">
-                            <img src="../../assets/icons/tickets.svg" />
-                            <p>fdsfds</p>
+                            <img src="../../assets/icons/Idea.svg" />
+                            <p>Ideas</p>
                         </div>
                     </li>
+
                     <li>
                         <div class="linkContainer">
-                            <img src="../../assets/icons/tickets.svg" />
-                            <p>fdsfds</p>
+                            <img src="../../assets/icons/Contact.svg" />
+                            <p>Contacts</p>
                         </div>
                     </li>
+
                     <li>
                         <div class="linkContainer">
-                            <img src="../../assets/icons/tickets.svg" />
-                            <p>fdsfds</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="linkContainer">
-                            <img src="../../assets/icons/tickets.svg" />
-                            <p>fdsfds</p>
+                            <img src="../../assets/icons/Agent.svg" />
+                            <p>Agent</p>
                         </div>
                     </li>
                 </ul >
@@ -60,6 +59,7 @@ export default {
 
 </script>
 <style scoped>
+
 .wrapper {
   background: #363740;
   padding: 32px 8px 32px 16px;
@@ -80,14 +80,21 @@ export default {
     text-align: left;
     gap: 10px;
     padding: 10px;
-    border-radius: 8px; 
     background-color:"#cde5f8";
 }
 
-.linkContainer >>> p {
-    color: #A4A6B3;
-}
 p {
     color: #A4A6B3
 }
+
+.logoContainer {
+    display: flex; 
+    justify-content: flex-start;
+    gap: 8px; 
+    align-items: center;
+    /*padding: 5px*/
+}
+
+
+
 </style>
